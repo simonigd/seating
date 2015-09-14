@@ -43,6 +43,7 @@
                     <button type="submit" class="btn btn-primary" style="margin-right: 15px;">
                         Login
                     </button>
+                    <a href="/auth/facebook" class="btn azm-social azm-btn azm-pill azm-facebook"><i class="fa fa-facebook"></i> Log in with Facebook</a>
 
                     <a href="{{ URL::to('/password/email') }}">Forgot Your Password?</a>
                 </div>

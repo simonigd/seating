@@ -9,7 +9,6 @@ class UserTableSeeder extends Seeder {
 
 		\App\User::create([
 			'name' => 'Admin User',
-			'username' => 'admin_user',
 			'email' => 'admin@admin.com',
 			'password' => bcrypt('admin'),
 			'confirmed' => 1,
@@ -19,7 +18,6 @@ class UserTableSeeder extends Seeder {
 
 		\App\User::create([
 			'name' => 'Test User',
-			'username' => 'test_user',
 			'email' => 'user@user.com',
 			'password' => bcrypt('user'),
 			'confirmed' => 1,

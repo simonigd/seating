@@ -29,10 +29,10 @@
 
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::guest())
-                    <li class="{{ (Request::is('auth/login') ? 'active' : '') }}"><a href="{{ URL::to('auth/login') }}"><i
+                    <li class="{{ (Request::is('login') ? 'active' : '') }}"><a href="{{ URL::to('login') }}"><i
                                     class="fa fa-sign-in"></i> Login</a></li>
-                    <li class="{{ (Request::is('auth/register') ? 'active' : '') }}"><a
-                                href="{{ URL::to('auth/register') }}">Register</a></li>
+                    <li class="{{ (Request::is('register') ? 'active' : '') }}"><a
+                                href="{{ URL::to('register') }}">Register</a></li>
                 @else
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -48,7 +48,7 @@
                                 <li role="presentation" class="divider"></li>
                             @endif
                             <li>
-                                <a href="{{ URL::to('auth/logout') }}"><i class="fa fa-sign-out"></i> Logout</a>
+                                <a href="{{ URL::to('logout') }}"><i class="fa fa-sign-out"></i> Logout</a>
                             </li>
                         </ul>
                     </li>

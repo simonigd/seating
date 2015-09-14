@@ -20,16 +20,50 @@ Route::get('article/{slug}', 'ArticlesController@show');
 Route::get('video/{id}', 'VideoController@show');
 Route::get('photo/{id}', 'PhotoController@show');
 
-Route::controllers([
+/*Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
+
 ]);
+*/
+
+/**********************
+/* socialite routes
+**********************/
+    Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
+    Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
+
+    Route::get('login', 'Auth\AuthController@login');
+    Route::get('register','Auth\AuthController@register');
+    Route::get('logout', function(){
+
+    Auth::logout();
+
+        return Redirect::to('/login');
+    });
+
+
+
+/*********************
+/ Event Routes
+/*********************/
+    Route::group(['prefix' => 'event','middleware' => 'auth'],function(){
+        Route::get('/',['as' => 'event.index','uses'=>'EventsController@index']); 
+        Route::get('create',['as' => 'event.create','uses'=>'EventsController@create']); 
+        Route::post('store',['as' => 'event.store','uses'=>'EventsController@store']); 
+        Route::get('edit/{id}',['as' => 'event.edit','uses'=>'EventsController@edit']); 
+    });
+
+
 
 /***************    Admin routes  **********************************/
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 
     # Admin Dashboard
     Route::get('dashboard', 'Admin\DashboardController@index');
+
+    
+    
 
     # Language
     Route::get('language/data', 'Admin\LanguageController@data');
@@ -75,3 +109,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::get('user/{user}/delete', 'Admin\UserController@delete');
     Route::resource('user', 'Admin\UserController');
 });
+
+
+

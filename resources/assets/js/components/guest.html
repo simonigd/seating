@@ -1,0 +1,8 @@
+
+<div
+    class="guest" 
+    v-draggable="x-guest: {type: 'guests', index: $index}" 
+    v-on="dragstart: dragStart,dragend:dragEnd" 
+> 
+    {{name}}:{{seat}}
+</div>

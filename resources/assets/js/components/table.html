@@ -1,0 +1,5 @@
+<div v-draggable="table:{id: id, index: $index}" class="table" v-on="dragstart: dragStart,dragend:dragEnd" v-dropzone="x-guest: dropHandler($dropdata.type,$dropdata.index)"
+>
+ <div v-repeat="seats" v-component="seat"></div>
+ <h2>{{name}}</h2>
+</div>

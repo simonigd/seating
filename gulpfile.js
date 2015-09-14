@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var bower = require('gulp-bower');
 var elixir = require('laravel-elixir');
+var browserify = require('laravel-elixir-browserify');
 
 gulp.task('bower', function() {
     return bower();
@@ -18,7 +19,8 @@ var paths = {
     'metisMenu': 'vendor/metisMenu/dist',
     'datatablesResponsive': 'vendor/datatables-responsive',
     'summernote': 'vendor/summernote/dist',
-    'select2': 'vendor/select2/dist'
+    'select2': 'vendor/select2/dist',
+    'datepicker': 'vendor/bootstrap-datepicker/dist'
 };
 
 elixir.config.sourcemaps = false;
@@ -39,6 +41,8 @@ elixir(function(mix) {
     mix.copy('resources/' + paths.flag + '/css/flag-sprites.min.css', 'public/css/flags.css');
     mix.copy('resources/' + paths.flag + '/img/flags.png', 'public/img/flags.png');
 
+       
+
     // Merge Site CSSs.
     mix.styles([
         '../../' + paths.bootstrap + '/css/bootstrap.css',
@@ -46,13 +50,24 @@ elixir(function(mix) {
         '../../' + paths.fontawesome + '/css/font-awesome.css',
         '../../' + paths.bootswatch + '/bootstrap.css',
         '../../' + paths.colorbox + '/example3/colorbox.css',
+        '../../' + paths.datepicker + '/css/bootstrap-datepicker.css'
+
     ], 'public/css/site.css');
+
+
+
+
+    // vue application for planner
+    mix.browserify('app.js');
+
+    mix.less('app.less');
 
     // Merge Site scripts.
     mix.scripts([
         '../../' + paths.jquery + '/jquery.js',
         '../../' + paths.bootstrap + '/js/bootstrap.js',
-        '../../' + paths.colorbox + '/jquery.colorbox.js'
+        '../../' + paths.colorbox + '/jquery.colorbox.js',
+        '../../' + paths.datepicker + '/js/bootstrap-datepicker.js'
     ], 'public/js/site.js');
 
     // Merge Admin CSSs.

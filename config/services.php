@@ -35,4 +35,16 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+
+    //Socialite
+    'facebook' => [
+        'client_id'     => '178245292373325',
+        'client_secret' => '5941c4331a4c440d4ad7f461c6160023',
+        'redirect'      => 'http://www.seatingplanner.co.uk/auth/facebook/callback',
+    ],
+
+
+
+
+
 ];

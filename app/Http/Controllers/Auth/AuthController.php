@@ -7,7 +7,9 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-
+use Socialite;
+use Auth;
+use View;
 class AuthController extends Controller
 {
     /*
@@ -62,4 +64,88 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    public function login()
+    {
+
+        return View::make('auth.login');
+
+    }
+
+    public function register()
+    {
+  
+        return View::make('auth.register');
+
+    }
+
+
+    public function logout()
+    {
+
+    dd('logout');    
+    }
+
+    /**
+     * Redirect the user to the authentication page.
+     *
+     * @return Response
+     */
+    public function redirectToProvider($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+
+    }
+
+    /**
+     * Obtain the user information from provider
+     *
+     * @return Response
+     */
+    public function handleProviderCallback($provider)
+    {
+
+        if(!$provider){
+            dd('no provider');
+        }
+        
+        $providerUser = Socialite::driver($provider)->user();
+ 
+       
+        //get the unique user_id from provider
+        $user_id = $providerUser->getId();
+
+        $user = User::where('provider_id', $user_id)->first();
+        
+
+    
+        if (!$user) {
+            $user = new User;
+            $user->name = $providerUser->name;
+            $user->email = $providerUser->email;
+            $user->provider_id = $user_id;
+            $user->provider= $provider;
+            $user->save();
+        }
+
+
+        // login
+        Auth::loginUsingId($user->id);
+
+        return redirect('/');
+       
+
+       
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
